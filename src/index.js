@@ -36,7 +36,7 @@ function map(array, fn) {
  */
 function reduce(array, fn, initial) {
     var result;
-    
+
     if (initial == undefined) {
         result = array[0];
         for (var i = 1; i < array.length; i++) {
@@ -44,8 +44,8 @@ function reduce(array, fn, initial) {
         }        
     } else {
         result = initial;
-        for (var i = 0; i < array.length; i++) {
-            result = fn(result, array[i], i, array);
+        for (var j = 0; j < array.length; j++) {
+            result = fn(result, array[j], j, array);
         }     
     }
 
