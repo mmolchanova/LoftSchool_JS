@@ -7,7 +7,9 @@
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
 function forEach(array, fn) {
-    for (var i = 0; i < array.length; i++) {
+    var num = array.length;
+
+    for (var i = 0; i < num; i++) {
         fn(array[i], i, array);
     }
 }
@@ -20,8 +22,9 @@ function forEach(array, fn) {
  */
 function map(array, fn) {
     var newArray = [];
+    var num = array.length;
 
-    for (var i = 0; i < array.length; i++) {
+    for (var i = 0; i < num; i++) {
         newArray[i] = fn(array[i], i, array);
     }
 
@@ -36,15 +39,16 @@ function map(array, fn) {
  */
 function reduce(array, fn, initial) {
     var result;
+    var num = array.length;
 
     if (initial == undefined) {
         result = array[0];
-        for (var i = 1; i < array.length; i++) {
+        for (var i = 1; i < num; i++) {
             result = fn(result, array[i], i, array);
         }        
     } else {
         result = initial;
-        for (var j = 0; j < array.length; j++) {
+        for (var j = 0; j < num; j++) {
             result = fn(result, array[j], j, array);
         }     
     }
@@ -62,9 +66,11 @@ function reduce(array, fn, initial) {
  */
 function upperProps(obj) {
     var arr = [];
-
+    
     for (var key in obj) {
-        arr.push(key.toUpperCase());
+        if (obj.hasOwnProperty(key)) {
+            arr.push(key.toUpperCase());
+        }
     }
 
     return arr;
