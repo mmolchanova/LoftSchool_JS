@@ -103,9 +103,10 @@ function returnArgumentsArray() {
  */
 function bindFunction(fn) {
     var args = [];
+    var number = arguments.length;
 
-    for (var i = 1; i < arguments.length; i++) {
-        args[i - 1] = arguments[i];
+    for (var i = 1; i < number; i++) {
+        args.push(arguments[i]);
     }
 
     function f() {
