@@ -27,10 +27,12 @@ function isAllTrue(array, fn) {
     
     for (var i = 0; i < number; i++) {
         var answer = fn(array[i]);
+
         if (!answer) {
             return false;
         }
     }
+
     return true;
 }
 
@@ -61,10 +63,12 @@ function isSomeTrue(array, fn) {
     
     for (var i = 0; i < number; i++) {
         var answer = fn(array[i]);
+        
         if (answer) {
             return true;
         }
     }
+
     return false;
 }
 
@@ -89,11 +93,12 @@ function returnBadArguments(fn) {
     
     for (var i = 1; i < number; i++) {
         try {
-            var answer = fn(arguments[i]);
-        } catch(e) {
+            fn(arguments[i]);
+        } catch (e) {
             arr.push(arguments[i]);
         }
     }
+    
     return arr;
 }
 
