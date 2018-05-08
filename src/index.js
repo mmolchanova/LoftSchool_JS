@@ -159,6 +159,7 @@ function deleteTextNodesRecursive(where) {
    }
  */
 function collectDOMStat(root) {
+    
 }
 
 /*
