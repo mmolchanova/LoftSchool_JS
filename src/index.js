@@ -244,8 +244,9 @@ function observeChildNodes(where, fn) {
         allmutations.map(function(mr) {
             if (mr.addedNodes.length) {
                 var arr = [];
+                var number = mr.addedNodes.length;
 
-                for (var i = 0; i < mr.addedNodes.length; i++) {
+                for (var i = 0; i < number; i++) {
                     arr.push(mr.addedNodes[i]);
                 }
                 obj = {
@@ -256,8 +257,9 @@ function observeChildNodes(where, fn) {
             }
             if (mr.removedNodes.length) {
                 var arr2 = [];
+                var number2 = mr.removedNodes.length;
 
-                for (var j = 0; j < mr.removedNodes.length; j++) {
+                for (var j = 0; j < number2; j++) {
                     arr2.push(mr.removedNodes[j]);
                 }
                 obj = {
