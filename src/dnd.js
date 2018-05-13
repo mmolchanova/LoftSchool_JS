@@ -16,9 +16,9 @@
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
-// const newButton = document.createElement('button');
-// newButton.innerHTML = 'Кнопка';
-// homeworkContainer.appendChild(newButton);
+homeworkContainer.style.width = '100%';
+homeworkContainer.style.height = '100vh';
+homeworkContainer.style.position = 'relative';
 
 /*
  Функция должна создавать и возвращать новый div с классом draggable-div и случайными размерами/цветом/позицией
@@ -31,16 +31,16 @@ const homeworkContainer = document.querySelector('#homework-container');
  */
 function createDiv() {
     const newDiv = document.createElement('div');
-
+    
     newDiv.classList.add('draggable-div');
-
+    
     function randomNumber(max, min) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-    const width = randomNumber(1000, 1);
-    const height = randomNumber(1000, 1);    
-    const xPosition = randomNumber(1000, 1);
-    const yPosition = randomNumber(1000, 1);
+    const width = randomNumber(1000, 10);
+    const height = randomNumber(1000, 10);    
+    const xPosition = randomNumber((homeworkContainer.clientWidth - width), 0);
+    const yPosition = randomNumber((homeworkContainer.clientHeight - height), 0);
     const colorR = randomNumber(255, 0);
     const colorG = randomNumber(255, 0);
     const colorB = randomNumber(255, 0);
@@ -50,7 +50,8 @@ function createDiv() {
     newDiv.style.left = xPosition + 'px';
     newDiv.style.top = yPosition + 'px';
     newDiv.style.backgroundColor = '#' + colorR.toString(16) + colorG.toString(16) + colorB.toString(16);
-    
+    newDiv.style.position = 'absolute';
+
     return newDiv;
 }
 
@@ -65,9 +66,7 @@ function createDiv() {
 function addListeners(target) {
     target.ondragstart = false;
 
-    target.onmousedown = function() { 
-        target.style.position = 'absolute';
-
+    target.onmousedown = function() {         
         function moveAt(e) {
             target.style.left = e.pageX - target.offsetWidth / 2 + 'px';
             target.style.top = e.pageY - target.offsetHeight / 2 + 'px';
