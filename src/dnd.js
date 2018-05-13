@@ -16,6 +16,9 @@
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
+// const newButton = document.createElement('button');
+// newButton.innerHTML = 'Кнопка';
+// homeworkContainer.appendChild(newButton);
 
 /*
  Функция должна создавать и возвращать новый div с классом draggable-div и случайными размерами/цветом/позицией
@@ -27,6 +30,28 @@ const homeworkContainer = document.querySelector('#homework-container');
    homeworkContainer.appendChild(newDiv);
  */
 function createDiv() {
+    const newDiv = document.createElement('div');
+
+    newDiv.classList.add('draggable-div');
+
+    function randomNumber(max, min) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    const width = randomNumber(1000, 1);
+    const height = randomNumber(1000, 1);    
+    const xPosition = randomNumber(1000, 1);
+    const yPosition = randomNumber(1000, 1);
+    const colorR = randomNumber(255, 0);
+    const colorG = randomNumber(255, 0);
+    const colorB = randomNumber(255, 0);
+
+    newDiv.style.width = width + 'px';
+    newDiv.style.height = height + 'px';
+    newDiv.style.left = xPosition + 'px';
+    newDiv.style.top = yPosition + 'px';
+    newDiv.style.backgroundColor = '#' + colorR.toString(16) + colorG.toString(16) + colorB.toString(16);
+    
+    return newDiv;
 }
 
 /*
@@ -38,6 +63,25 @@ function createDiv() {
    addListeners(newDiv);
  */
 function addListeners(target) {
+    target.ondragstart = false;
+
+    target.onmousedown = function() { 
+        target.style.position = 'absolute';
+
+        function moveAt(e) {
+            target.style.left = e.pageX - target.offsetWidth / 2 + 'px';
+            target.style.top = e.pageY - target.offsetHeight / 2 + 'px';
+        }
+    
+        document.onmousemove = function(e) {
+            moveAt(e);
+        }
+    
+        target.onmouseup = function() {
+            document.onmousemove = null;
+            target.onmouseup = null;
+        }
+    }
 }
 
 let addDivButton = homeworkContainer.querySelector('#addDiv');
