@@ -16,6 +16,7 @@
    homeworkContainer.appendChild(newDiv);
  */
 const homeworkContainer = document.querySelector('#homework-container');
+
 homeworkContainer.style.width = '100%';
 homeworkContainer.style.height = '100vh';
 homeworkContainer.style.position = 'relative';
