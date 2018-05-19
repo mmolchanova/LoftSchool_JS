@@ -41,9 +41,15 @@ function loadAndSortTowns() {
         }
     }
 
-    var promise = new Promise(function(resolve) {
+    var promise = new Promise(function(resolve, reject) {
         fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-            .then(response => response.json())
+            .then(response => {
+                if (response.status == 200) {
+                    return response.json();
+                } else {
+                    reject('Не удалось загрузить города');
+                }              
+            })
             .then(towns => {
                 towns.sort(nameSort);
 

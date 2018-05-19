@@ -37,32 +37,21 @@ const homeworkContainer = document.querySelector('#homework-container');
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
 
-import loadAndSortTowns from './index';
+import { loadAndSortTowns as loadTowns } from './index';
 
-function loadTowns() {
-    function nameSort(a, b) {
-        if (a.name > b.name) {
-            return 1;
-        }
-        if (a.name < b.name) {
-            return -1;
-        }
-    }
-    
-    var promise = new Promise(function(resolve) {
-        fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
-            .then(response => response.json())
-            .then(towns => {
-                towns.sort(nameSort);
-                loadingBlock.style.display = 'none';
-                filterBlock.style.display = 'block';
-
-                return resolve(towns);
-            })
-    })    
-
-    return promise;
+function loadData() {
+    loadTowns()
+        .then(
+        (result) => {
+            loadingBlock.style.display = 'none';
+            filterBlock.style.display = 'block';    
+        },
+        (error) => {
+            newBtn.style.display = 'block';
+            loadingBlock.innerText = error;
+        })
 }
+
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -92,6 +81,16 @@ const filterInput = homeworkContainer.querySelector('#filter-input');
 /* Блок с результатами поиска */
 const filterResult = homeworkContainer.querySelector('#filter-result');
 
+const newBtn = document.createElement('button');
+
+newBtn.innerText = 'Повторить';
+newBtn.style.display = 'none';
+newBtn.addEventListener('click', () => {
+    newBtn.style.display = 'none';
+    loadData();
+});
+homeworkContainer.appendChild(newBtn);
+
 filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
     for (var i = 0; i < filterResult.children.length; i++) {
@@ -113,6 +112,8 @@ filterInput.addEventListener('keyup', function() {
         })
     }    
 });
+
+loadData();
 
 export {
     loadTowns,
