@@ -42,16 +42,15 @@ import { loadAndSortTowns as loadTowns } from './index';
 function loadData() {
     loadTowns()
         .then(
-        (result) => {
-            loadingBlock.style.display = 'none';
-            filterBlock.style.display = 'block';    
-        },
-        (error) => {
-            newBtn.style.display = 'block';
-            loadingBlock.innerText = error;
-        })
+            () => {
+                loadingBlock.style.display = 'none';
+                filterBlock.style.display = 'block';    
+            },
+            (error) => {
+                newBtn.style.display = 'block';
+                loadingBlock.innerText = error;
+            })
 }
-
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full

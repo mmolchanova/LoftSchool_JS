@@ -46,9 +46,8 @@ function loadAndSortTowns() {
             .then(response => {
                 if (response.status == 200) {
                     return response.json();
-                } else {
-                    reject('Не удалось загрузить города');
-                }              
+                } 
+                reject('Не удалось загрузить города');              
             })
             .then(towns => {
                 towns.sort(nameSort);
