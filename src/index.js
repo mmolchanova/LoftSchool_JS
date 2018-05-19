@@ -9,7 +9,7 @@
    delayPromise(3) // вернет promise, который будет разрешен через 3 секунды
  */
 function delayPromise(seconds) {
-    var promise = new Promise(function(resolve, reject) {
+    var promise = new Promise(function(resolve) {
         setTimeout(function() {
             resolve();
         }, seconds*1000);
@@ -33,15 +33,20 @@ function delayPromise(seconds) {
  */
 function loadAndSortTowns() {
     function nameSort(a, b) {
-        if (a.name > b.name) return 1;
-        if (a.name < b.name) return -1;
+        if (a.name > b.name) {
+            return 1;
+        }
+        if (a.name < b.name) {
+            return -1;
+        }
     }
 
-    var promise = new Promise(function(resolve, reject) {
+    var promise = new Promise(function(resolve) {
         fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
             .then(response => response.json())
             .then(towns => {
                 towns.sort(nameSort);
+
                 return resolve(towns);
             })
     })

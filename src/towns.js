@@ -38,20 +38,26 @@ const homeworkContainer = document.querySelector('#homework-container');
  */
 function loadTowns() {
     function nameSort(a, b) {
-        if (a.name > b.name) return 1;
-        if (a.name < b.name) return -1;
+        if (a.name > b.name) {
+            return 1;
+        }
+        if (a.name < b.name) {
+            return -1;
+        }
     }
-
-    var promise = new Promise(function(resolve, reject) {
+    
+    var promise = new Promise(function(resolve) {
         fetch('https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json')
             .then(response => response.json())
             .then(towns => {
                 towns.sort(nameSort);
-                loadingBlock.style.display = 'none';
-                filterBlock.style.display = 'block';
+
                 return resolve(towns);
             })
     })
+
+    loadingBlock.style.display = 'none';
+    filterBlock.style.display = 'block';
 
     return promise;
 }
@@ -70,9 +76,9 @@ function loadTowns() {
 function isMatching(full, chunk) {
     if (full.toLowerCase().indexOf(chunk.toLowerCase()) >= 0) {
         return true;
-    } else {
-        return false;
     }
+    
+    return false;
 }
 
 /* Блок с надписью "Загрузка" */
@@ -86,6 +92,24 @@ const filterResult = homeworkContainer.querySelector('#filter-result');
 
 filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
+    for (var i = 0; i < filterResult.children.length; i++) {
+        filterResult.removeChild(filterResult.children[i]);
+        i--;
+    }
+    var str = filterInput.value;
+
+    if (str != '') {
+        loadTowns().then(towns => {
+            for (const elem in towns) {
+                if (isMatching(towns[elem].name, str)) {
+                    var newDiv = document.createElement('div');
+
+                    newDiv.innerHTML = towns[elem].name;
+                    filterResult.appendChild(newDiv);
+                } 
+            }
+        })
+    }    
 });
 
 export {
